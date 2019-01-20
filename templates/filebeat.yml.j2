@@ -1,0 +1,41 @@
+filebeat.inputs:
+
+- type: log
+  paths:
+    - "{{ app_base_path }}/*/logs/debug.log"
+    - "{{ app_base_path }}/*/logs/warn.log"
+    - "{{ app_base_path }}/*/logs/analytics.log"
+  fields:
+    logzio_codec: plain
+    token: {{ filebeat_logz_token }}
+    type: apache
+  fields_under_root: true
+  encoding: utf-8
+  ignore_older: 3h
+  registry_file: /var/lib/filebeat/registry
+
+- type: log
+  paths:
+    - "{{ app_base_path }}/*/logs/error.log"
+  fields:
+    logzio_codec: plain
+    token: {{ filebeat_logz_token }}
+    type: apache
+  fields_under_root: true
+  encoding: utf-8
+  ignore_older: 3h
+  registry_file: /var/lib/filebeat/registry
+  multiline.pattern: ^\20
+  multiline.negate: true
+  multiline.match: after
+
+output:
+
+  logstash:
+    hosts: ['{{ filebeat_logz_logstash_host }}']
+    ssl:
+      certificate_authorities: ["{{ filebeat_ssl_dir }}/{{ filebeat_ssl_certificate_file | basename }}"]
+
+processors:
+  - add_host_metadata: ~
+  - add_cloud_metadata: ~
