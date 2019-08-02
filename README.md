@@ -1,29 +1,39 @@
-Role Name
-=========
+Logz Filebeat
+=============
 
 Role started as a fork from https://github.com/geerlingguy/ansible-role-filebeat
+
+Setup `filebeat` service on a RedHat/Debian/Ubuntu Linux server and configure it to use a Logz.io account via token. 
 
 Requirements
 ------------
 
-Role Variables
---------------
+To use the role add these lines to `requirements.yml` file
 
-Example Playbook
-----------------
+```yaml
+- src: https://github.com/channelweb/ansible-logz-filebeat
+  name: logz-filebeat
+```
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Then with usual `ansible-galaxy install -r requirements.yml` role will be added
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+Variables
+---------
+
+Only mandatory variable is Logz access token `{{ filebeat_logz_token }}` that should be defined in a `vault` file.
+
+Example
+-------
+
+To launch role simply include in a playbook roles definition:
+
+```yaml
+    - role: logz-filebeat
+      become: yes
+```
 
 License
 -------
 
 BSD
 
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
