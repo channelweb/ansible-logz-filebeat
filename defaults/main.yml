@@ -4,6 +4,12 @@ filebeat_create_config: true
 
 app_base_path: /var/www/bedita
 
+# app environment: development, test, production...
+app_environment: unknown
+
+# extra one line logs to add
+filebeat_extra_linelogs: []
+
 filebeat_inputs:
   - input_type: log
     paths:

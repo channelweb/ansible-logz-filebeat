@@ -5,10 +5,14 @@ filebeat.inputs:
     - "{{ app_base_path }}/*/logs/debug.log"
     - "{{ app_base_path }}/*/logs/warn.log"
     - "{{ app_base_path }}/*/logs/analytics.log"
+{% for item in filebeat_extra_linelogs %}
+    - "{{ item }}"
+{% endfor %}
   fields:
     logzio_codec: plain
     token: {{ filebeat_logz_token }}
     type: apache
+    app_env: {{ app_environment }}
   fields_under_root: true
   encoding: utf-8
   ignore_older: 3h
