@@ -25,6 +25,7 @@ filebeat.inputs:
     logzio_codec: plain
     token: {{ filebeat_logz_token }}
     type: apache
+    app_env: {{ app_environment }}
   fields_under_root: true
   encoding: utf-8
   ignore_older: 3h
