@@ -2,7 +2,8 @@
 filebeat_version: 6.x
 filebeat_create_config: true
 
-app_base_path: /var/www/bedita
+# base path for log files
+app_logs_path: /var/log/apps
 
 # app environment: development, test, production...
 app_environment: unknown
