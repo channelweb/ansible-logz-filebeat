@@ -2,9 +2,9 @@ filebeat.inputs:
 
 - type: log
   paths:
-    - "{{ app_logs_path }}/*/logs/debug.log"
-    - "{{ app_logs_path }}/*/logs/warn.log"
-    - "{{ app_logs_path }}/*/logs/analytics.log"
+    - "{{ app_logs_path }}/*/debug.log"
+    - "{{ app_logs_path }}/*/warn.log"
+    - "{{ app_logs_path }}/*/analytics.log"
 {% for item in filebeat_extra_linelogs %}
     - "{{ item }}"
 {% endfor %}
@@ -20,7 +20,7 @@ filebeat.inputs:
 
 - type: log
   paths:
-    - "{{ app_logs_path }}/*/logs/error.log"
+    - "{{ app_logs_path }}/*/error.log"
   fields:
     logzio_codec: plain
     token: {{ filebeat_logz_token }}
