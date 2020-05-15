@@ -39,7 +39,10 @@ output:
   logstash:
     hosts: ['{{ filebeat_logz_logstash_host }}']
     ssl:
-      certificate_authorities: ["{{ filebeat_ssl_dir }}/{{ filebeat_ssl_certificate_file | basename }}"]
+      certificate_authorities:
+{% for cert in filebeat_ssl_certificate_files %}
+         - "{{ filebeat_ssl_dir }}/{{ cert | basename }}"
+{% endfor %}
 
 processors:
   - add_host_metadata: ~

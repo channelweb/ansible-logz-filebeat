@@ -13,9 +13,10 @@
     path: "{{ filebeat_ssl_dir }}"
     state: directory
 
-- name: Copy SSL cert for filebeat.
+- name: Copy SSL certs for filebeat.
   copy:
-    src: "{{ filebeat_ssl_certificate_file }}"
-    dest: "{{ filebeat_ssl_dir }}/{{ filebeat_ssl_certificate_file | basename }}"
+    src: "{{ item }}"
+    dest: "{{ filebeat_ssl_dir }}/{{ item | basename }}"
     mode: 0644
+  loop: "{{ filebeat_ssl_certificate_files }}"
   notify: restart filebeat
