@@ -6,6 +6,7 @@ filebeat.inputs:
 {% for item in filebeat_extra_linelogs %}
     - "{{ item }}"
 {% endfor %}
+  exclude_files: ['(error|cli-error).log$']
   fields:
     logzio_codec: plain
     token: {{ filebeat_logz_token }}
